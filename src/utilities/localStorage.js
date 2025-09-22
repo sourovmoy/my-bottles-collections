@@ -12,4 +12,11 @@ const addCart = (id) => {
   const cartString = JSON.stringify(cart);
   localStorage.setItem("cart", cartString);
 };
-export { getCart, addCart };
+
+const removeCart = (id) => {
+  const getCarts = getCart();
+  const filterCart = getCarts.filter((num) => num !== id);
+  const cartString = JSON.stringify(filterCart);
+  localStorage.setItem("cart", cartString);
+};
+export { getCart, addCart, removeCart as remove };

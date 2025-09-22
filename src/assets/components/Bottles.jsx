@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import Bottle from "./Bottle/Bottle";
-import { addCart, getCart } from "../../utilities/localStorage";
+import { addCart, getCart, remove } from "../../utilities/localStorage";
 
 const Bottles = ({ bottlesPromise }) => {
   const bottles = use(bottlesPromise);
@@ -22,6 +22,11 @@ const Bottles = ({ bottlesPromise }) => {
     setCart(newCart);
     addCart(bottle.id);
   };
+  const removeCart = (id) => {
+    const removeId = cart.filter((cartId) => cartId.id !== id);
+    setCart(removeId);
+    remove(id);
+  };
 
   return (
     <div>
@@ -31,6 +36,7 @@ const Bottles = ({ bottlesPromise }) => {
           <li key={pic.id} className="bg-amber-400 w-[10vw] rounded-2xl p-2">
             <img className="w-full rounded-lg" src={pic.img}></img>
             <p className="text-xs">{pic.name}</p>
+            <button onClick={() => removeCart(pic.id)}>❌</button>
           </li>
         ))}
       </ol>
