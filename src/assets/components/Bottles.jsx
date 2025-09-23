@@ -5,25 +5,42 @@ import { addCart, getCart, remove } from "../../utilities/localStorage";
 const Bottles = ({ bottlesPromise }) => {
   const bottles = use(bottlesPromise);
   const [cart, setCart] = useState([]);
+  // useEffect(() => {
+  //   const getStoredCartId = getCart();
+  //   const storeCard = [];
+  //   for (const id of getStoredCartId) {
+  //     const cartBottle = bottles.find((bottles) => bottles.id === id);
+  //     if (cartBottle) {
+  //       storeCard.push(cartBottle);
+  //     }
+  //   }
+  //   setCart(storeCard);
+  // }, [bottles]);
+
   useEffect(() => {
-    const getStoredCartId = getCart();
+    const getAllCart = getCart();
     const storeCard = [];
-    for (const id of getStoredCartId) {
-      const cartBottle = bottles.find((bottles) => bottles.id === id);
-      if (cartBottle) {
-        storeCard.push(cartBottle);
+    for (const id of getAllCart) {
+      const bottleCart = bottles.find((bottles) => bottles.id === id);
+      if (bottleCart) {
+        storeCard.push(bottleCart);
       }
     }
     setCart(storeCard);
   }, [bottles]);
-
   const addCartHandler = (bottle) => {
     const newCart = [...cart, bottle];
     setCart(newCart);
     addCart(bottle.id);
   };
+  // const removeCart = (id) => {
+  //   const removeId = cart.filter((cartId) => cartId.id !== id);
+  //   setCart(removeId);
+  //   remove(id);
+  // };
+
   const removeCart = (id) => {
-    const removeId = cart.filter((cartId) => cartId.id !== id);
+    const removeId = cart.filter((carts) => carts.id !== id);
     setCart(removeId);
     remove(id);
   };
